@@ -23,6 +23,10 @@ public class ErrorHandlerController implements ErrorController {
 				return "error/error-404";
 			}
 
+			if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+				return "error/error-500";
+			}
+
 		}
 
 		return "error/error";

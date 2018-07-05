@@ -1,7 +1,9 @@
 package com.example.sso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sso.mediator.ICRUDMediator;
@@ -15,7 +17,8 @@ public class SimpleMVCController extends AbstractRestController<Simple, Integer>
 	private ISimpleMVCMediator simpleMVCMediator;
 
 	@GetMapping(value = "/testing")
-	public String testing() {
+	@ResponseStatus(HttpStatus.OK)
+	public String testing() throws Exception {		
 		return "testing";
 	}
 
