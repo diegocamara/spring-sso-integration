@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+<link rel='stylesheet'
+	href='/webjars/bootstrap/4.0.0/css/bootstrap.min.css' />
+</head>
+<body>
+	<form name="f" th:action="@{/logout}" method="post">
+		<button type="submit" class="btn">Log out</button>
+	</form>
+</body>
+</html>
