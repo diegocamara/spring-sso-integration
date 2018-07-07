@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorHandlerController implements ErrorController {
 
-	@RequestMapping("/error")
+	private static final String DEFAULT_ERROR_VIEW = "errors/error";
+	private static final String ERROR_500_VIEW = "errors/error-500";
+	private static final String ERROR_404_VIEW = "errors/error-404";
+	private static final String DEFAULT_ERROR_PATH = "/error";
+
+	@RequestMapping(DEFAULT_ERROR_PATH)
 	public String handleError(HttpServletRequest httpServletRequest) {
 
 		Object status = httpServletRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -20,21 +25,21 @@ public class ErrorHandlerController implements ErrorController {
 			Integer statusCode = Integer.valueOf(status.toString());
 
 			if (statusCode == HttpStatus.NOT_FOUND.value()) {
-				return "error/error-404";
+				return ERROR_404_VIEW;
 			}
 
 			if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-				return "error/error-500";
+				return ERROR_500_VIEW;
 			}
 
 		}
 
-		return "error/error";
+		return DEFAULT_ERROR_VIEW;
 	}
 
 	@Override
 	public String getErrorPath() {
-		return "/error";
+		return DEFAULT_ERROR_PATH;
 	}
 
 }
