@@ -1,4 +1,4 @@
-package com.example.sso.provider;
+package com.example.sso.constants;
 
 public class ConstantsMessages {
 

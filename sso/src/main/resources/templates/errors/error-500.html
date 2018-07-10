@@ -1,7 +1,12 @@
-<html>
-	<head>
-	</head>
-	<body>
-		<h1>Internal server error</h1>
-	</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div th:if="${error != null}">
+		<pre th:text="${error}">
+		</pre>
+	</div>
+	<h1>Internal server error</h1>
+</body>
 </html>
