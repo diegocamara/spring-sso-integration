@@ -1,7 +1,5 @@
 package com.example.sso.controller;
 
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +13,6 @@ public class LoginController {
 
 	@GetMapping(LOGIN_PATH)
 	public String login(Model model) {
-		model.addAttribute("serverTime", LocalDateTime.now());
-
 		return ConstantsViews.LOGIN_VIEW;
 	}
 

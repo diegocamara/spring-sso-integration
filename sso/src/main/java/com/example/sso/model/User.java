@@ -2,22 +2,22 @@ package com.example.sso.model;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "APPLICATION_USER")
+@Table(name = "USER")
 public class User implements UserDetails {
 
 	static final long serialVersionUID = 1L;
@@ -36,13 +36,15 @@ public class User implements UserDetails {
 	@Column(name = "ENABLED", nullable = false)
 	private boolean enabled;
 
-	@OneToMany(mappedBy = "user")
-	private List<UserRole> roles;
+	@ManyToMany
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.roles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getName()))
-				.collect(Collectors.toList());
+//		this.roles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getPrivileges().getName()))
+//				.collect(Collectors.toList());
+		return null;
 	}
 
 	@Override
@@ -85,11 +87,11 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public List<UserRole> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<UserRole> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

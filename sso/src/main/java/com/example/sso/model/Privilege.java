@@ -1,15 +1,18 @@
 package com.example.sso.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "APPLICATION_ROLE")
-public class ApplicationRole {
+@Table(name = "PRIVILEGE")
+public class Privilege {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +22,8 @@ public class ApplicationRole {
 	@Column(name = "NAME", nullable = true, unique = true)
 	private String name;
 
-	@Column(name = "DESCRIPTION", nullable = true)
-	private String description;
+	@ManyToMany(mappedBy = "privileges")
+	private List<Role> roles;
 
 	public Long getId() {
 		return id;
@@ -36,14 +39,6 @@ public class ApplicationRole {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 }

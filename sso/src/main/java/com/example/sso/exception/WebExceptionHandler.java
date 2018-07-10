@@ -24,17 +24,9 @@ public class WebExceptionHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView unexpectedExceptionHandler(Exception exception) {
 		LOGGER.error(exception.getMessage(), exception);
-
 		ModelAndView mav = new ModelAndView(ConstantsViews.ERROR_500_VIEW);
-
 		mav.addObject("error", exception.getMessage());
-
 		return mav;
-	}
-
-	// @ExceptionHandler(paGEno)
-	public ModelAndView notFoundException() {
-		return null;
 	}
 
 }
