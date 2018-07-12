@@ -18,7 +18,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.example.sso.formatter.NameFormatter;
 
@@ -41,7 +40,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Bean
 	public ViewResolver htmlViewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine(htmlTemplateResolver()));
+		resolver.setTemplateEngine(templateEngine());
 		resolver.setContentType("text/html");
 		resolver.setCharacterEncoding("UTF-8");
 		resolver.setViewNames(ArrayUtils.toArray("*.html"));
@@ -51,7 +50,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Bean
 	public ViewResolver javascriptViewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine(javascriptTemplateResolver()));
+		resolver.setTemplateEngine(templateEngine());
 		resolver.setContentType("application/javascript");
 		resolver.setCharacterEncoding("UTF-8");
 		resolver.setViewNames(ArrayUtils.toArray("*.js"));
@@ -59,24 +58,17 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public ViewResolver plainViewResolver() {
-		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine(plainTemplateResolver()));
-		resolver.setContentType("text/plain");
-		resolver.setCharacterEncoding("UTF-8");
-		resolver.setViewNames(ArrayUtils.toArray("*.txt"));
-		return resolver;
-	}
-
-	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
+	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
+		engine.addTemplateResolver(htmlTemplateResolver());
+		engine.addTemplateResolver(javascriptTemplateResolver());
 		engine.addDialect(new LayoutDialect(new GroupingStrategy()));
 		engine.addDialect(new Java8TimeDialect());
-		engine.setTemplateResolver(templateResolver);
 		engine.setTemplateEngineMessageSource(this.messageSource);
 		return engine;
 	}
 
+	@Bean
 	public SpringResourceTemplateResolver htmlTemplateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 		resolver.setApplicationContext(this.applicationContext);
@@ -84,24 +76,22 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		resolver.setSuffix(".html");
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.HTML);
+		resolver.setCharacterEncoding("UTF-8");
+		resolver.setOrder(0);
+		resolver.setCheckExistence(true);
 		return resolver;
 	}
 
-	private ITemplateResolver javascriptTemplateResolver() {
+	@Bean
+	public SpringResourceTemplateResolver javascriptTemplateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 		resolver.setApplicationContext(this.applicationContext);
 		resolver.setPrefix("classpath:static/js/");
+		resolver.setSuffix(".js");
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.JAVASCRIPT);
-		return resolver;
-	}
-
-	private ITemplateResolver plainTemplateResolver() {
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);
-		resolver.setPrefix("classpath:static/txt/");
-		resolver.setCacheable(false);
-		resolver.setTemplateMode(TemplateMode.TEXT);
+		resolver.setCharacterEncoding("UTF-8");
+		resolver.setOrder(1);
 		return resolver;
 	}
 
