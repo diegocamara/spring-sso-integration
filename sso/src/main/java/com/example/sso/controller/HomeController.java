@@ -16,4 +16,9 @@ public class HomeController {
 		return ConstantsViews.HOME_VIEW;
 	}
 
+	@GetMapping("/js/home.js")
+	public String testingjs() {
+		return "home.js";
+	}
+
 }

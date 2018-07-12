@@ -21,6 +21,9 @@ public class Role {
 	@Column(name = "ID")
 	private Long id;
 
+	@Column(name = "NAME", columnDefinition = "VARCHAR(255)")
+	private String name;
+
 	@ManyToMany(mappedBy = "roles")
 	private List<User> users;
 

@@ -1,6 +1,7 @@
 package com.example.sso.model;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -37,14 +39,36 @@ public class User implements UserDetails {
 	private boolean enabled;
 
 	@ManyToMany
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
 	private List<Role> roles;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		this.roles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getPrivileges().getName()))
-//				.collect(Collectors.toList());
-		return null;
+
+		List<GrantedAuthority> authorities = new LinkedList<>();
+		List<String> privileges = getPrivileges();
+
+		for (String privilege : privileges) {
+			authorities.add(new SimpleGrantedAuthority(privilege));
+		}
+
+		return authorities;
+	}
+
+	private List<String> getPrivileges() {
+		List<String> privileges = new LinkedList<>();
+		List<Privilege> collection = new LinkedList<>();
+
+		for (Role role : this.roles) {
+			collection.addAll(role.getPrivileges());
+		}
+
+		for (Privilege privilege : collection) {
+			privileges.add(privilege.getName());
+		}
+
+		return privileges;
+
 	}
 
 	@Override
