@@ -14,4 +14,7 @@ public class ConstantsViews {
 	// Login
 	public static final String LOGIN_VIEW = "login";
 
+	// User registration
+	public static final String USER_REGISTRATION_VIEW = "registration";
+
 }
