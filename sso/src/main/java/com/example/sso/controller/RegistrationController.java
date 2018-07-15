@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,9 +27,15 @@ public class RegistrationController {
 	}
 
 	@PostMapping(USER_REGISTRATION_PATH)
-	public ModelAndView registerUserAccount(@Valid UserDTO user, BindingResult result, WebRequest request,
-			Errors errors) {
+	public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid UserDTO user, BindingResult result,
+			WebRequest request, Errors errors) {
+
+		if (errors.hasErrors()) {
+			return new ModelAndView(ConstantsViews.USER_REGISTRATION_VIEW, "user", user);
+		}
+
 		return null;
+
 	}
 
 }

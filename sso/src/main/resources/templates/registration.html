@@ -7,22 +7,26 @@
 		<div>
 			<label>first</label>
 			<input th:field="*{firstName}"/>
+			<p th:each="error: ${#fields.errors('firstName')}" th:text="${error}"></p>
 		</div>
 		<div>
 			<label>last</label>
 			<input th:field="*{lastName}"/>
+			<p th:each="error: ${#fields.errors('lastName')}" th:text="${error}"></p>
 		</div>
 		<div>
 			<label>email</label>
 			<input type="email" th:field="*{email}"/>
+			<p th:each="error: ${#fields.errors('email')}" th:text="${error}"></p>
 		</div>
 		<div>
 			<label>password</label>
-			<input type="password" th:field="*{password}"/>
+			<input type="password" th:field="*{password}"/>					
 		</div>
 		<div>
 			<label>confirm password</label>
 			<input type="password" th:field="*{matchingPassword}"/>
+			<p th:each="error: ${#fields.errors('matchingPassword')}" th:text="${error}"></p>
 		</div>
 		<button type="submit">submit</button>
 	</form>

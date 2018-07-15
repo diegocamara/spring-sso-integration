@@ -1,26 +1,27 @@
 package com.example.sso.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
+import com.example.sso.annotation.PasswordMatches;
+import com.example.sso.annotation.ValidEmail;
+
+@PasswordMatches
 public class UserDTO {
 
-	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String firstName;
 
-	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String lastName;
 
-	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String password;
 
+	@NotBlank
 	private String matchingPassword;
 
-	@NotNull
-	@NotEmpty
+	@NotBlank
+	@ValidEmail
 	private String email;
 
 	public String getFirstName() {
