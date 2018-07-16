@@ -5,14 +5,16 @@ import java.util.List;
 
 public interface ICRUDMediator<T, ID extends Serializable> extends IMediator {
 
-	T create(T json);
+	T save(T entity);
 
-	T update(ID id, T json);
+	T update(T entity);
 
-	void delete(ID id);
+	T saveOrUpdate(T entity);
 
-	T findOne(ID id);
+	void delete(T entity);
 
-	List<T> listAll();
+	T findById(ID id);
+
+	List<T> findAll();
 
 }

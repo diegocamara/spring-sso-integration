@@ -5,11 +5,13 @@ import java.util.List;
 
 public interface IDAO<T, ID extends Serializable> {
 
-	T create(T json);
+	T save(T entity);
 
-	T update(ID id, T json);
+	T update(T entity);
 
-	void delete(ID id);
+	T saveOrUpdate(T entity);
+
+	void delete(T entity);
 
 	T findById(ID id);
 

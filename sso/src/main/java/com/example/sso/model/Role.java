@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +19,8 @@ import javax.persistence.Table;
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "role_seq", sequenceName = "ROLE_SEQUENCE", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
 	@Column(name = "ID")
 	private Long id;
 

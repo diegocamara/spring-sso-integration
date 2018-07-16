@@ -4,16 +4,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import com.example.sso.model.User;
 
 @Repository
-public class UserDAO extends AbstractCRUDDAO<User, Long> implements IUserDAO {
+public class UserDAO extends AbstractDAO<User, Long> implements IUserDAO {
 
 	@Override
-	public UserDetails consultByUsername(String username) {
+	public User consultByUsername(String username) {
 		CriteriaBuilder builder = getCriteriaBuilder();
 		CriteriaQuery<User> criteriaQuery = getCriteriaQuery(builder);
 		Root<User> user = getRoot(criteriaQuery);
@@ -30,6 +29,16 @@ public class UserDAO extends AbstractCRUDDAO<User, Long> implements IUserDAO {
 		criteriaQuery.select(builder.count(user));
 		criteriaQuery.where(builder.equal(user.get(filterKey), filterValue));
 		return getSingleResult(criteriaQuery).intValue();
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		CriteriaBuilder builder = getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = getCriteriaQuery(builder);
+		Root<User> user = getRoot(criteriaQuery);
+		criteriaQuery.select(user);
+		criteriaQuery.where(builder.equal(user.get("email"), email));
+		return getSingleResult(criteriaQuery);
 	}
 
 }

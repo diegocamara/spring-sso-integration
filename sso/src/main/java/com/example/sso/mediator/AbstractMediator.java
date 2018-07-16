@@ -11,31 +11,37 @@ public abstract class AbstractMediator<T, ID extends Serializable> implements IC
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public T create(T json) {
-		return getDAO().create(json);
+	public T save(T entity) {
+		return getDAO().save(entity);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public T update(ID id, T json) {
-		return getDAO().update(id, json);
+	public T update(T entity) {
+		return getDAO().update(entity);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void delete(ID id) {
-		getDAO().delete(id);
+	public T saveOrUpdate(T entity) {
+		return getDAO().saveOrUpdate(entity);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(T entity) {
+		getDAO().delete(entity);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public T findOne(ID id) {
+	public T findById(ID id) {
 		return getDAO().findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<T> listAll() {
+	public List<T> findAll() {
 		return getDAO().findAll();
 	}
 

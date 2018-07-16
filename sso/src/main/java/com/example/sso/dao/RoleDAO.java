@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.sso.model.Role;
 
 @Repository
-public class RoleDAO extends AbstractCRUDDAO<Role, Long> implements IRoleDAO {
+public class RoleDAO extends AbstractDAO<Role, Long> implements IRoleDAO {
 
 	@Override
 	public Role findByName(String roleName) {

@@ -16,7 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
+public abstract class AbstractDAO<T, ID extends Serializable> {
 
 	private Class<T> clazz;
 
@@ -75,7 +75,7 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 		return criteria;
 	}
 
-	public T findOne(Serializable id) {
+	public T findById(ID id) {
 		return getCurrentSession().get(getEntityClass(), id);
 	}
 
@@ -89,8 +89,14 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 		return entity;
 	}
 
-	public void update(T entity) {
-		getCurrentSession().merge(entity);
+	public T save(T entity) {
+		getCurrentSession().save(entity);
+		return entity;
+	}
+
+	public T update(T entity) {
+		getCurrentSession().update(entity);
+		return entity;
 	}
 
 	public void delete(T entity) {
@@ -106,6 +112,11 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 		for (Object object : entityObjects) {
 			getCurrentSession().saveOrUpdate(object);
 		}
+	}
+
+	public T saveOrUpdate(T entity) {
+		getCurrentSession().saveOrUpdate(entity);
+		return entity;
 	}
 
 	protected Class<T> getEntityClass() {

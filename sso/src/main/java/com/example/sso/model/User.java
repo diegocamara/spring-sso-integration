@@ -13,20 +13,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "USER")
-public class User implements UserDetails {
+public class User {
 
 	static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQUENCE", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 	@Column(name = "ID", nullable = false, updatable = false)
 	private Long id;
 
@@ -46,7 +47,6 @@ public class User implements UserDetails {
 	@JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
 	private List<Role> roles;
 
-	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
 		List<GrantedAuthority> authorities = new LinkedList<>();
@@ -75,46 +75,6 @@ public class User implements UserDetails {
 
 	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// we never lock accounts
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// credentials never expire
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	@Override
-	public String getPassword() {
-		return password;
-	}
-
-	@Override
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -123,12 +83,32 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
