@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.example.sso.annotation.PasswordMatches;
-import com.example.sso.dto.UserDTO;
+import com.example.sso.dto.UserRegistrationFormDTO;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
@@ -14,13 +14,13 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
 	@Override
 	public boolean isValid(Object object, ConstraintValidatorContext context) {
-		UserDTO userDTO = (UserDTO) object;
+		UserRegistrationFormDTO form = (UserRegistrationFormDTO) object;
 
-		if (userDTO.getPassword() == null || userDTO.getMatchingPassword() == null) {
+		if (form.getPassword() == null || form.getMatchingPassword() == null) {
 			return false;
 		}
 
-		boolean result = userDTO.getPassword().equals(userDTO.getMatchingPassword());
+		boolean result = form.getPassword().equals(form.getMatchingPassword());
 
 		if (!result) {
 			context.disableDefaultConstraintViolation();

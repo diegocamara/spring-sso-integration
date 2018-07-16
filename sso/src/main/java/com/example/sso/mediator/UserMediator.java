@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sso.dao.UserDAO;
+import com.example.sso.model.User;
 
 @Service
 public class UserMediator implements UserDetailsService {
@@ -19,6 +20,11 @@ public class UserMediator implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return this.userDAO.consultByUsername(username);
+	}
+
+	@Transactional(readOnly = true)
+	public User findByUserName(String userName) {
+		return this.userDAO.findByUserName(userName);
 	}
 
 }

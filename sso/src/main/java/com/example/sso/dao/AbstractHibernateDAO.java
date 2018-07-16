@@ -5,22 +5,57 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 
 	private Class<T> clazz;
 
-	// @Autowired
+	@Autowired
 	SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	private void postConstruct() {
 		this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+	protected CriteriaBuilder getCriteriaBuilder() {
+		return getCurrentSession().getCriteriaBuilder();
+	}
+
+	protected CriteriaQuery<T> getCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+		return criteriaBuilder.createQuery(getEntityClass());
+	}
+
+	protected Root<T> getRoot(CriteriaQuery<T> criteriaQuery) {
+		return criteriaQuery.from(getEntityClass());
+	}
+
+	protected T getSingleResult(CriteriaQuery<T> criteriaQuery) {
+		Query<T> query = getCurrentSession().createQuery(criteriaQuery);
+
+		try {
+			return query.getSingleResult();
+		} catch (NoResultException noResultException) {
+			return null;
+		}
+
+	}
+
+	protected List<T> getResultList(CriteriaQuery<T> criteriaQuery) {
+		Query<T> query = getCurrentSession().createQuery(criteriaQuery);
+
+		return query.getResultList();
 	}
 
 	public Criteria createCriteria() {
@@ -34,12 +69,12 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 	}
 
 	public T findOne(Serializable id) {
-		return (T) getCurrentSession().get(getEntityClass(), id);
+		return getCurrentSession().get(getEntityClass(), id);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		return (List<T>) createCriteria().list();
+		return createCriteria().list();
 	}
 
 	public T create(T entity) {

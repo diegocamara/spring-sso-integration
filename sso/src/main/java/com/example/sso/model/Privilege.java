@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Privilege {
 	@Column(name = "NAME", nullable = true, unique = true)
 	private String name;
 
-	@ManyToMany(mappedBy = "privileges")
+	@ManyToMany(mappedBy = "privileges", fetch = FetchType.LAZY)
 	private List<Role> roles;
 
 	public Long getId() {
