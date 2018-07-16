@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.sso.dao.ICRUDDAO;
+import com.example.sso.dao.IDAO;
 
-public abstract class AbstractCRUDMediator<T, ID extends Serializable> implements ICRUDMediator<T, ID> {
+public abstract class AbstractMediator<T, ID extends Serializable> implements ICRUDMediator<T, ID> {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -39,6 +39,6 @@ public abstract class AbstractCRUDMediator<T, ID extends Serializable> implement
 		return getDAO().findAll();
 	}
 
-	protected abstract ICRUDDAO<T, ID> getDAO();
+	protected abstract IDAO<T, ID> getDAO();
 
 }

@@ -36,6 +36,9 @@ public class User implements UserDetails {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
+	@Column(name = "EMAIL")
+	private String email;
+
 	@Column(name = "ENABLED", nullable = false)
 	private boolean enabled;
 
@@ -110,6 +113,26 @@ public class User implements UserDetails {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public List<Role> getRoles() {

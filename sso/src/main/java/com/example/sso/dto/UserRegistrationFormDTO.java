@@ -9,10 +9,7 @@ import com.example.sso.annotation.ValidEmail;
 public class UserRegistrationFormDTO {
 
 	@NotBlank
-	private String firstName;
-
-	@NotBlank
-	private String lastName;
+	private String username;
 
 	@NotBlank
 	private String password;
@@ -24,20 +21,12 @@ public class UserRegistrationFormDTO {
 	@ValidEmail
 	private String email;
 
-	public String getFirstName() {
-		return firstName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

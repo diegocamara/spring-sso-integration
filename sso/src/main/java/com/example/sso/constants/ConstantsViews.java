@@ -16,5 +16,6 @@ public class ConstantsViews {
 
 	// User registration
 	public static final String USER_REGISTRATION_VIEW = "registration";
+	public static final String USER_REGISTRATION_SUCCESS = "registrationSuccess";
 
 }

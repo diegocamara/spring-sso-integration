@@ -1,4 +1,4 @@
-package com.example.sso.exception;
+package com.example.sso.configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

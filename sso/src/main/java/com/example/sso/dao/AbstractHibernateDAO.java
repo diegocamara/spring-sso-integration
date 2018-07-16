@@ -21,7 +21,7 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 	private Class<T> clazz;
 
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -37,32 +37,39 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 		return criteriaBuilder.createQuery(getEntityClass());
 	}
 
+	protected <E> CriteriaQuery<E> getCriteriaQuery(CriteriaBuilder criteriaBuilder, Class<E> clazz) {
+		return criteriaBuilder.createQuery(clazz);
+	}
+
+	protected <E> Root<E> getRoot(CriteriaQuery<?> criteriaQuery, Class<E> clazz) {
+		return criteriaQuery.from(clazz);
+	}
+
 	protected Root<T> getRoot(CriteriaQuery<T> criteriaQuery) {
 		return criteriaQuery.from(getEntityClass());
 	}
 
-	protected T getSingleResult(CriteriaQuery<T> criteriaQuery) {
-		Query<T> query = getCurrentSession().createQuery(criteriaQuery);
-
+	protected <E> E getSingleResult(CriteriaQuery<E> criteriaQuery) {
+		Query<E> query = getCurrentSession().createQuery(criteriaQuery);
 		try {
 			return query.getSingleResult();
 		} catch (NoResultException noResultException) {
 			return null;
 		}
-
 	}
 
-	protected List<T> getResultList(CriteriaQuery<T> criteriaQuery) {
-		Query<T> query = getCurrentSession().createQuery(criteriaQuery);
-
+	protected <E> List<E> getResultList(CriteriaQuery<E> criteriaQuery) {
+		Query<E> query = getCurrentSession().createQuery(criteriaQuery);
 		return query.getResultList();
 	}
 
+	@Deprecated
 	public Criteria createCriteria() {
 		Criteria criteria = getCurrentSession().createCriteria(getEntityClass());
 		return criteria;
 	}
 
+	@Deprecated
 	public Criteria createCriteria(Class<?> criteriaClass) {
 		Criteria criteria = getCurrentSession().createCriteria(criteriaClass);
 		return criteria;
@@ -100,31 +107,6 @@ public abstract class AbstractHibernateDAO<T, ID extends Serializable> {
 			getCurrentSession().saveOrUpdate(object);
 		}
 	}
-
-	// public void save(Object... entityObjects) {
-	// for (Object object : entityObjects) {
-	// getCurrentSession().save(object);
-	// }
-	// getCurrentSession().flush();
-	// }
-	//
-	// public void update(Object... entityObjects) {
-	// for (Object object : entityObjects) {
-	// getCurrentSession().update(object);
-	// }
-	// }
-	//
-	// public void delete(Object... entityObjects) {
-	// for (Object object : entityObjects) {
-	// getCurrentSession().delete(object);
-	// }
-	// }
-	//
-	// public void evict(Object... entityObjects) {
-	// for (Object object : entityObjects) {
-	// getCurrentSession().evict(object);
-	// }
-	// }
 
 	protected Class<T> getEntityClass() {
 		return this.clazz;

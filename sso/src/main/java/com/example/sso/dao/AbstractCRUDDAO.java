@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 public class AbstractCRUDDAO<T, ID extends Serializable> extends AbstractHibernateDAO<T, ID>
-		implements ICRUDDAO<T, ID> {
+		implements IDAO<T, ID> {
 
 	@Override
 	public T create(T entity) {

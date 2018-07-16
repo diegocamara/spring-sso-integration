@@ -3,7 +3,7 @@ package com.example.sso.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface ICRUDDAO<T, ID extends Serializable> {
+public interface IDAO<T, ID extends Serializable> {
 
 	T create(T json);
 
