@@ -16,10 +16,14 @@ import javax.persistence.Table;
 @Table(name = "PRIVILEGE")
 public class Privilege {
 
+	public static final String COLUMN_ID = "ID";
+	public static final String SEQUENCE_NAME = "PRIVILEGE_SEQUENCE";
+	public static final String SEQUENCE_GENERATOR_NAME = "PRIVILEGE_SEQUENCE_GENERATOR";
+
 	@Id
-	@SequenceGenerator(name = "privilege_seq", sequenceName = "PRIVILEGE_SEQUENCE", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "privilege_seq")
-	@Column(name = "ID", nullable = false, updatable = false)
+	@SequenceGenerator(name = SEQUENCE_GENERATOR_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR_NAME)
+	@Column(name = COLUMN_ID, nullable = false)
 	private Long id;
 
 	@Column(name = "NAME", nullable = true, unique = true)

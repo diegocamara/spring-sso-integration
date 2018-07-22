@@ -18,10 +18,14 @@ import javax.persistence.Table;
 @Table(name = "ROLE")
 public class Role {
 
+	public static final String COLUMN_ID = "ID";
+	public static final String SEQUENCE_NAME = "ROLE_SEQUENCE";
+	public static final String SEQUENCE_GENERATOR_NAME = "ROLE_SEQUENCE_GENERATOR";
+
 	@Id
-	@SequenceGenerator(name = "role_seq", sequenceName = "ROLE_SEQUENCE", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
-	@Column(name = "ID")
+	@SequenceGenerator(name = SEQUENCE_GENERATOR_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR_NAME)
+	@Column(name = COLUMN_ID, nullable = false)
 	private Long id;
 
 	@Column(name = "NAME", columnDefinition = "VARCHAR(255)")

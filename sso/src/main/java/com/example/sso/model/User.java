@@ -23,12 +23,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Table(name = "USER")
 public class User {
 
-	static final long serialVersionUID = 1L;
+	public static final String COLUMN_ID = "ID";
+	public static final String SEQUENCE_NAME = "USER_SEQUENCE";
+	public static final String SEQUENCE_GENERATOR_NAME = "USER_SEQUENCE_GENERATOR";
 
 	@Id
-	@SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQUENCE", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-	@Column(name = "ID", nullable = false, updatable = false)
+	@SequenceGenerator(name = SEQUENCE_GENERATOR_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR_NAME)
+	@Column(name = COLUMN_ID, nullable = false, updatable = false)
 	private Long id;
 
 	@Column(name = "USERNAME", nullable = false, unique = true)
