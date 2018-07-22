@@ -18,5 +18,6 @@ public class ConstantsViews {
 	public static final String USER_REGISTRATION_VIEW = "registration";
 	public static final String USER_REGISTRATION_EMAIL_ERROR_VIEW = "emailError";
 	public static final String USER_REGISTRATION_SUCCESS_VIEW = "registrationSuccess";
+	public static final String USER_REGISTRATION_BADUSER_VIEW = "badUser";
 
 }

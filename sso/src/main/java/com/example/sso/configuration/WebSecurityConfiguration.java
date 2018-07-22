@@ -33,7 +33,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/login", "/logout", "/user/registration", "/webjars/**", "/img/**", "/css/**", "/js/**")
+				.antMatchers("/login", "/logout", "/user/registration", "/user/registrationConfirm", "/webjars/**",
+						"/img/**", "/css/**", "/js/**")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.loginProcessingUrl("/perform_login").usernameParameter("email").passwordParameter("password")
 				.defaultSuccessUrl("/home").permitAll().and().logout().logoutUrl("/perform_logout")

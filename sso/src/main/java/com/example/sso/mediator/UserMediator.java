@@ -88,7 +88,7 @@ public class UserMediator extends AbstractMediator<User, Long> implements IUserM
 		user.setEmail(form.getEmail());
 		user.setPassword(this.passwordEncoder.encode(form.getPassword()));
 		user.setRoles(Arrays.asList(this.roleMediator.findByName("ROLE_USER")));
-		user.setEnabled(true);
+
 		return save(user);
 	}
 

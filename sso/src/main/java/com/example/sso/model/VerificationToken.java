@@ -17,8 +17,6 @@ import javax.persistence.Table;
 @Table(name = "VERIFICATION_TOKEN")
 public class VerificationToken {
 
-	private static final int EXPIRATION_MINUTES = 60 * 24;
-
 	public static final String COLUMN_ID = "ID";
 	public static final String SEQUENCE_NAME = "VERIFICATION_TOKEN_SEQUENCE";
 	public static final String SEQUENCE_GENERATOR_NAME = "VERIFICATION_TOKEN_SEQUENCE_GENERATOR";
@@ -35,13 +33,9 @@ public class VerificationToken {
 	@Column(name = "EXPIRY_DATE")
 	private LocalDateTime expiryDate;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", referencedColumnName = User.COLUMN_ID, nullable = false)
 	private User user;
-
-	private LocalDateTime calculateExpiryDate(int expiryTimeInMinutes) {
-		return LocalDateTime.now().plusMinutes(expiryTimeInMinutes);
-	}
 
 	public Long getId() {
 		return id;
