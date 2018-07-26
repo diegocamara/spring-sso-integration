@@ -92,15 +92,13 @@ public class RegistrationController {
 		if (verificationToken == null) {
 			String message = this.messageSource.getMessage("auth.message.invalidToken", null, locale);
 			model.addAttribute("message", message);
-			return ViewUtils.redirect(
-					ConstantsViews.USER_REGISTRATION_BADUSER_VIEW.concat("?lang=").concat(locale.getLanguage()));
+			return ViewUtils.redirect(ConstantsViews.USER_REGISTRATION_BADUSER_VIEW);
 		}
 
 		if (this.verificationTokenMediator.isTokenExpired(verificationToken)) {
 			String message = this.messageSource.getMessage("auth.message.expired", null, locale);
 			model.addAttribute("message", message);
-			return ViewUtils.redirect(
-					ConstantsViews.USER_REGISTRATION_BADUSER_VIEW.concat("?lang=").concat(locale.getLanguage()));
+			return ViewUtils.redirect(ConstantsViews.USER_REGISTRATION_BADUSER_VIEW);
 		}
 
 		User user = verificationToken.getUser();
