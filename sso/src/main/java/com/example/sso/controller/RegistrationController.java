@@ -1,6 +1,5 @@
 package com.example.sso.controller;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -22,10 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.sso.constants.ConstantsViews;
 import com.example.sso.dto.UserRegistrationFormDTO;
 import com.example.sso.event.OnRegistrationCompleteEvent;
-import com.example.sso.mediator.IUserMediator;
-import com.example.sso.mediator.IVerificationTokenMediator;
 import com.example.sso.model.User;
 import com.example.sso.model.VerificationToken;
+import com.example.sso.service.UserService;
+import com.example.sso.service.VerificationTokenService;
 import com.example.sso.util.ViewUtils;
 
 @Controller
@@ -35,10 +34,10 @@ public class RegistrationController {
 	private static final String USER_REGISTRATION_CONFIRM_PATH = "/user/registrationConfirm";
 
 	@Autowired
-	private IUserMediator userMediator;
+	private UserService userMediator;
 
 	@Autowired
-	private IVerificationTokenMediator verificationTokenMediator;
+	private VerificationTokenService verificationTokenMediator;
 
 	@Autowired
 	private ApplicationEventPublisher applicationEventPublisher;
@@ -103,7 +102,7 @@ public class RegistrationController {
 
 		User user = verificationToken.getUser();
 		user.setEnabled(true);
-		this.userMediator.update(user);
+		this.userMediator.saveOrUpdate(user);
 		return ViewUtils.redirect(ConstantsViews.LOGIN_VIEW);
 	}
 

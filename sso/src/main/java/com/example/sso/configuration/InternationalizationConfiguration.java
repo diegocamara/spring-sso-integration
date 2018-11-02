@@ -13,7 +13,7 @@ public class InternationalizationConfiguration {
 	private static final String[] RESOURCES_CLASSPATH = { "classpath:i18n/messages" };
 
 	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
+	public LocaleChangeInterceptor localeChangeInterceptor() {		
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
 		localeChangeInterceptor.setParamName("lang");
 		return localeChangeInterceptor;

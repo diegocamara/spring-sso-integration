@@ -14,17 +14,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "ROLE")
 public class Role {
 
 	public static final String COLUMN_ID = "ID";
-	public static final String SEQUENCE_NAME = "ROLE_SEQUENCE";
-	public static final String SEQUENCE_GENERATOR_NAME = "ROLE_SEQUENCE_GENERATOR";
+	public static final String GENERIC_GENERATOR_NAME = "native";
 
 	@Id
-	@SequenceGenerator(name = SEQUENCE_GENERATOR_NAME, sequenceName = SEQUENCE_NAME, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR_NAME)
+	@GenericGenerator(name = GENERIC_GENERATOR_NAME, strategy = GENERIC_GENERATOR_NAME)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = GENERIC_GENERATOR_NAME)
 	@Column(name = COLUMN_ID, nullable = false)
 	private Long id;
 

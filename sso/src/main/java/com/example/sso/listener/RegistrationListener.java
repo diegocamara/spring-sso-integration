@@ -10,14 +10,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.example.sso.event.OnRegistrationCompleteEvent;
-import com.example.sso.mediator.IVerificationTokenMediator;
 import com.example.sso.model.User;
+import com.example.sso.service.VerificationTokenService;
 
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
 	@Autowired
-	private IVerificationTokenMediator verificationTokenMediator;
+	private VerificationTokenService verificationTokenMediator;
 
 	@Autowired
 	private MessageSource messageSource;

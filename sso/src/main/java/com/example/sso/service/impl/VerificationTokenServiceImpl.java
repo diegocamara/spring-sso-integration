@@ -1,4 +1,4 @@
-package com.example.sso.mediator;
+package com.example.sso.service.impl;
 
 import java.time.LocalDateTime;
 
@@ -6,19 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.sso.dao.IDAO;
-import com.example.sso.dao.IVerificationTokenDAO;
+import com.example.sso.dao.DAO;
+import com.example.sso.dao.VerificationTokenDAO;
 import com.example.sso.model.User;
 import com.example.sso.model.VerificationToken;
+import com.example.sso.service.VerificationTokenService;
 
 @Service
-public class VerificationTokenMediator extends AbstractMediator<VerificationToken, Long>
-		implements IVerificationTokenMediator {
+public class VerificationTokenServiceImpl extends AbstractService<VerificationToken, Long>
+		implements VerificationTokenService {
 
 	private static final int EXPIRATION_MINUTES = 60 * 24;
 
 	@Autowired
-	private IVerificationTokenDAO verificationTokenDAO;
+	private VerificationTokenDAO verificationTokenDAO;
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -35,7 +36,7 @@ public class VerificationTokenMediator extends AbstractMediator<VerificationToke
 	}
 
 	@Override
-	protected IDAO<VerificationToken, Long> getDAO() {
+	protected DAO<VerificationToken, Long> getDAO() {
 		return this.verificationTokenDAO;
 	}
 

@@ -1,4 +1,4 @@
-package com.example.sso.mediator;
+package com.example.sso.service.impl;
 
 import java.util.Arrays;
 
@@ -12,14 +12,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.sso.dao.IDAO;
-import com.example.sso.dao.IUserDAO;
+import com.example.sso.dao.DAO;
+import com.example.sso.dao.UserDAO;
 import com.example.sso.dto.UserRegistrationFormDTO;
 import com.example.sso.exception.EmailExistsException;
 import com.example.sso.model.User;
+import com.example.sso.service.RoleService;
+import com.example.sso.service.UserService;
 
 @Service
-public class UserMediator extends AbstractMediator<User, Long> implements IUserMediator {
+public class UserServiceImpl extends AbstractService<User, Long> implements UserService {
 
 	@Autowired
 	private MessageSource messageSource;
@@ -28,10 +30,10 @@ public class UserMediator extends AbstractMediator<User, Long> implements IUserM
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private IRoleMediator roleMediator;
+	private RoleService roleMediator;
 
 	@Autowired
-	private IUserDAO userDAO;
+	private UserDAO userDAO;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -58,7 +60,7 @@ public class UserMediator extends AbstractMediator<User, Long> implements IUserM
 	}
 
 	@Override
-	protected IDAO<User, Long> getDAO() {
+	protected DAO<User, Long> getDAO() {
 		return this.userDAO;
 	}
 

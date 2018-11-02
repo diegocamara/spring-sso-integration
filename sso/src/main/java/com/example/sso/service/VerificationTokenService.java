@@ -1,9 +1,9 @@
-package com.example.sso.mediator;
+package com.example.sso.service;
 
 import com.example.sso.model.User;
 import com.example.sso.model.VerificationToken;
 
-public interface IVerificationTokenMediator {
+public interface VerificationTokenService {
 
 	void createVerificationToken(User user, String token);
 

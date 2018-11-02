@@ -1,21 +1,22 @@
-package com.example.sso.mediator;
+package com.example.sso.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.sso.dao.IDAO;
-import com.example.sso.dao.IRoleDAO;
+import com.example.sso.dao.DAO;
+import com.example.sso.dao.RoleDAO;
 import com.example.sso.model.Role;
+import com.example.sso.service.RoleService;
 
 @Service
-public class RoleMediator extends AbstractMediator<Role, Long> implements IRoleMediator {
+public class RoleServiceImpl extends AbstractService<Role, Long> implements RoleService {
 
 	@Autowired
-	private IRoleDAO roleDAO;
+	private RoleDAO roleDAO;
 
 	@Override
-	protected IDAO<Role, Long> getDAO() {
+	protected DAO<Role, Long> getDAO() {
 		return this.roleDAO;
 	}
 
