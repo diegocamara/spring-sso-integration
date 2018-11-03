@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.example.sso.model.User;
+import com.example.sso.domain.User;
 
 public class OnRegistrationCompleteEvent extends ApplicationEvent {
 

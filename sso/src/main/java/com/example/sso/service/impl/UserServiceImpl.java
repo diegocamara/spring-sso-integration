@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sso.dao.DAO;
 import com.example.sso.dao.UserDAO;
-import com.example.sso.dto.UserRegistrationFormDTO;
+import com.example.sso.domain.User;
 import com.example.sso.exception.EmailExistsException;
-import com.example.sso.model.User;
+import com.example.sso.model.dto.UserRegistrationFormDTO;
 import com.example.sso.service.RoleService;
 import com.example.sso.service.UserService;
 

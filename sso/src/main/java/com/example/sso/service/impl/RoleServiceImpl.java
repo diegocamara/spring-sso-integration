@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sso.dao.DAO;
 import com.example.sso.dao.RoleDAO;
-import com.example.sso.model.Role;
+import com.example.sso.domain.Role;
 import com.example.sso.service.RoleService;
 
 @Service

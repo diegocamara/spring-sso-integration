@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.example.sso.dao.RoleDAO;
-import com.example.sso.model.Role;
+import com.example.sso.domain.Role;
 
 @Repository
 public class RoleDAOImpl extends AbstractDAO<Role, Long> implements RoleDAO {

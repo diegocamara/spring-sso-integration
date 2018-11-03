@@ -1,4 +1,4 @@
-package com.example.sso.dto;
+package com.example.sso.model.dto;
 
 import javax.validation.constraints.NotBlank;
 

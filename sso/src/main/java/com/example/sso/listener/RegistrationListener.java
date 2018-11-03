@@ -9,8 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import com.example.sso.domain.User;
 import com.example.sso.event.OnRegistrationCompleteEvent;
-import com.example.sso.model.User;
 import com.example.sso.service.VerificationTokenService;
 
 @Component

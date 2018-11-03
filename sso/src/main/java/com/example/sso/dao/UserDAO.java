@@ -1,6 +1,6 @@
 package com.example.sso.dao;
 
-import com.example.sso.model.User;
+import com.example.sso.domain.User;
 
 public interface UserDAO extends DAO<User, Long> {
 

@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sso.dao.DAO;
 import com.example.sso.dao.VerificationTokenDAO;
-import com.example.sso.model.User;
-import com.example.sso.model.VerificationToken;
+import com.example.sso.domain.User;
+import com.example.sso.domain.VerificationToken;
 import com.example.sso.service.VerificationTokenService;
 
 @Service

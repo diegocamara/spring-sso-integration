@@ -48,6 +48,18 @@ public class PersistenceConfiguration {
 	@Value("${hibernate.default.schema}")
 	private String HIBERNATE_DEFAULT_SCHEMA;
 
+	@Value("${hibernate.jdbc.batch_size}")
+	private int HIBERNATE_JDBC_BATCH_SIZE;
+
+	@Value("${hibernate.order_inserts}")
+	private boolean HIBERNATE_ORDER_INSERTS;
+
+	@Value("${hibernate.order_updates}")
+	private boolean HIBERNATE_ORDER_UPDATES;
+
+	@Value("${hibernate.generate_statistics}")
+	private boolean HIBERNATE_GENERATE_STATISTICS;
+
 	@Value("${entitymanager.packagesToScan}")
 	private String ENTITYMANAGER_PACKAGES_TO_SCAN;
 
@@ -74,19 +86,23 @@ public class PersistenceConfiguration {
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
+	public JpaTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
 		final JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
 		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
 		return jpaTransactionManager;
 	}
 
 	private Properties hibernateProperties() {
-		Properties hibernateProperties = new Properties();
+		final Properties hibernateProperties = new Properties();
 		hibernateProperties.put(Environment.DIALECT, HIBERNATE_DIALECT);
 		hibernateProperties.put(Environment.SHOW_SQL, HIBERNATE_SHOW_SQL);
 		hibernateProperties.put(Environment.FORMAT_SQL, HIBERNATE_FORMAT_SQL);
 		hibernateProperties.put(Environment.HBM2DDL_AUTO, HIBERNATE_HBM2DDL_AUTO);
 		hibernateProperties.put(Environment.DEFAULT_SCHEMA, HIBERNATE_DEFAULT_SCHEMA);
+		hibernateProperties.put(Environment.STATEMENT_BATCH_SIZE, HIBERNATE_JDBC_BATCH_SIZE);
+		hibernateProperties.put(Environment.ORDER_INSERTS, HIBERNATE_ORDER_INSERTS);
+		hibernateProperties.put(Environment.ORDER_UPDATES, HIBERNATE_ORDER_UPDATES);
+		hibernateProperties.put(Environment.GENERATE_STATISTICS, HIBERNATE_GENERATE_STATISTICS);
 		return hibernateProperties;
 
 	}

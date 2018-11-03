@@ -20,7 +20,7 @@ public class WebExceptionHandler {
 	@Autowired
 	private MessageSource messageSource;
 
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView unexpectedExceptionHandler(Exception exception) {
 		LOGGER.error(exception.getMessage(), exception);

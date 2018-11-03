@@ -1,4 +1,4 @@
-package com.example.sso.model;
+package com.example.sso.domain;
 
 import java.util.Collection;
 import java.util.LinkedList;

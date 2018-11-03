@@ -19,10 +19,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.sso.constants.ConstantsViews;
-import com.example.sso.dto.UserRegistrationFormDTO;
+import com.example.sso.domain.User;
+import com.example.sso.domain.VerificationToken;
 import com.example.sso.event.OnRegistrationCompleteEvent;
-import com.example.sso.model.User;
-import com.example.sso.model.VerificationToken;
+import com.example.sso.model.dto.UserRegistrationFormDTO;
 import com.example.sso.service.UserService;
 import com.example.sso.service.VerificationTokenService;
 import com.example.sso.util.ViewUtils;

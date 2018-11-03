@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.example.sso.dao.VerificationTokenDAO;
-import com.example.sso.model.VerificationToken;
+import com.example.sso.domain.VerificationToken;
 
 @Repository
 public class VerificationTokenDAOImpl extends AbstractDAO<VerificationToken, Long> implements VerificationTokenDAO {

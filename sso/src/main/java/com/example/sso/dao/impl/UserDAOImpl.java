@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.example.sso.dao.UserDAO;
-import com.example.sso.model.User;
+import com.example.sso.domain.User;
 
 @Repository
 public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {

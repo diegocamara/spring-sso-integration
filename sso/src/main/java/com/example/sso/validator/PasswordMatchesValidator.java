@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.example.sso.annotation.PasswordMatches;
-import com.example.sso.dto.UserRegistrationFormDTO;
+import com.example.sso.model.dto.UserRegistrationFormDTO;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 

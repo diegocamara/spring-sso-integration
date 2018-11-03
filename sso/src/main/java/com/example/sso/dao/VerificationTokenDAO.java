@@ -1,6 +1,6 @@
 package com.example.sso.dao;
 
-import com.example.sso.model.VerificationToken;
+import com.example.sso.domain.VerificationToken;
 
 public interface VerificationTokenDAO extends DAO<VerificationToken, Long> {
 

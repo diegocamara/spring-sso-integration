@@ -1,7 +1,7 @@
 package com.example.sso.service;
 
-import com.example.sso.model.User;
-import com.example.sso.model.VerificationToken;
+import com.example.sso.domain.User;
+import com.example.sso.domain.VerificationToken;
 
 public interface VerificationTokenService {
 
