@@ -3,9 +3,10 @@ package com.example.sso.service;
 import com.example.sso.domain.User;
 import com.example.sso.domain.VerificationToken;
 
-public interface VerificationTokenService {
+public interface VerificationTokenService
+		extends Service<VerificationToken, Long>, ICRUDService<VerificationToken, Long> {
 
-	void createVerificationToken(User user, String token);
+	VerificationToken createVerificationToken(User user, String token);
 
 	VerificationToken findByToken(String token);
 

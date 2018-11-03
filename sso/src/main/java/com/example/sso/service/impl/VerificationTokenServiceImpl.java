@@ -23,12 +23,12 @@ public class VerificationTokenServiceImpl extends AbstractService<VerificationTo
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void createVerificationToken(User user, String token) {
+	public VerificationToken createVerificationToken(User user, String token) {
 		VerificationToken verificationToken = new VerificationToken();
 		verificationToken.setUser(user);
 		verificationToken.setToken(token);
 		verificationToken.setExpiryDate(calculateExpiryDate(EXPIRATION_MINUTES));
-		save(verificationToken);
+		return save(verificationToken);
 	}
 
 	public LocalDateTime calculateExpiryDate(int expiryTimeInMinutes) {

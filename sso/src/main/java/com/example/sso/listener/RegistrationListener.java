@@ -1,7 +1,5 @@
 package com.example.sso.listener;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
@@ -10,14 +8,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.example.sso.domain.User;
+import com.example.sso.domain.VerificationToken;
 import com.example.sso.event.OnRegistrationCompleteEvent;
-import com.example.sso.service.VerificationTokenService;
 
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
-
-	@Autowired
-	private VerificationTokenService verificationTokenMediator;
 
 	@Autowired
 	private MessageSource messageSource;
@@ -32,15 +27,15 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
 	private void confirmRegistration(OnRegistrationCompleteEvent event) {
 		User user = event.getUser();
-		String token = UUID.randomUUID().toString();
-		this.verificationTokenMediator.createVerificationToken(user, token);
-//		sendEmail(event, user, token);
+		sendEmail(event, user);
 	}
 
-	private void sendEmail(OnRegistrationCompleteEvent event, User user, String token) {
+	private void sendEmail(OnRegistrationCompleteEvent event, User user) {
 		String recipientAddress = user.getEmail();
+		VerificationToken verificationToken = user.getVerificationToken();
 		String subject = "Registration Confirmation";
-		String confirmationUrl = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
+		String confirmationUrl = event.getAppUrl() + "/user/registrationConfirm.html?token="
+				+ verificationToken.getToken();
 		String message = this.messageSource.getMessage("message.regSucc", null, event.getLocale());
 
 		SimpleMailMessage email = new SimpleMailMessage();

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -47,6 +48,9 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
 	private List<Role> roles;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	private VerificationToken verificationToken;
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -122,6 +126,14 @@ public class User {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public VerificationToken getVerificationToken() {
+		return verificationToken;
+	}
+
+	public void setVerificationToken(VerificationToken verificationToken) {
+		this.verificationToken = verificationToken;
 	}
 
 }

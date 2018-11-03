@@ -2,8 +2,6 @@ package com.example.sso.configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +15,8 @@ public class WebExceptionHandler {
 
 	private static final Logger LOGGER = LogManager.getLogger(WebExceptionHandler.class);
 
-	@Autowired
-	private MessageSource messageSource;
+//	@Autowired
+//	private MessageSource messageSource;
 
 	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

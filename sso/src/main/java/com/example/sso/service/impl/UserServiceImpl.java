@@ -1,23 +1,17 @@
 package com.example.sso.service.impl;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sso.dao.DAO;
 import com.example.sso.dao.UserDAO;
 import com.example.sso.domain.User;
-import com.example.sso.exception.EmailExistsException;
-import com.example.sso.model.dto.UserRegistrationFormDTO;
-import com.example.sso.service.RoleService;
 import com.example.sso.service.UserService;
 
 @Service
@@ -25,12 +19,6 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
 	@Autowired
 	private MessageSource messageSource;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private RoleService roleMediator;
 
 	@Autowired
 	private UserDAO userDAO;
@@ -65,42 +53,9 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 	}
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public User registerUserAccount(UserRegistrationFormDTO form) {
-
-		User user = null;
-
-		try {
-			user = createUserAccount(form);
-		} catch (EmailExistsException ex) {
-			return null;
-		}
-
-		return user;
-	}
-
-	private User createUserAccount(UserRegistrationFormDTO form) throws EmailExistsException {
-
-		if (isEmailExists(form.getEmail())) {
-			throw new EmailExistsException(emailExistsMessage(form));
-		}
-
-		User user = new User();
-		user.setUsername(form.getUsername());
-		user.setEmail(form.getEmail());
-		user.setPassword(this.passwordEncoder.encode(form.getPassword()));
-		user.setRoles(Arrays.asList(this.roleMediator.findByName("ROLE_USER")));
-
-		return save(user);
-	}
-
-	private String emailExistsMessage(UserRegistrationFormDTO form) {
-		return messageSource.getMessage("email.exists.on.registration.message", ArrayUtils.toArray(form.getEmail()),
-				LocaleContextHolder.getLocale());
-	}
-
-	private boolean isEmailExists(String email) {
-		return this.userDAO.userCountByFilter("email", email) > 0;
+	@Transactional(readOnly = true)
+	public int userCountByFilter(String filterKey, String filterValue) {
+		return this.userDAO.userCountByFilter(filterKey, filterValue);
 	}
 
 }

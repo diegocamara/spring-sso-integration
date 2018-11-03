@@ -1,6 +1,6 @@
 package com.example.sso.exception;
 
-public class EmailExistsException extends Throwable {
+public class EmailExistsException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
